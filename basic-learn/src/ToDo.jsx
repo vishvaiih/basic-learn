@@ -11,14 +11,16 @@ function ToDo() {
   };
 
   const handleAdd = () => {
-    const nwtask = {
-      id: Math.random() * Math.pow(5, 9),
-      name: task,
-      status: "pending",
-    };
+    if (task.trim()) {
+      const nwtask = {
+        id: Math.random() * Math.pow(5, 9),
+        name: task,
+        status: "pending",
+      };
 
-    setToDo([...toDo, nwtask]);
-    setTask("");
+      setToDo([...toDo, nwtask]);
+      setTask("");
+    }
   };
 
   const handleEdit = (id) => {
@@ -57,14 +59,15 @@ function ToDo() {
 
   const handleComplte = (id) => {
     const upattask = toDo?.map((itm) =>
-        itm.id === id
-          ? { ...itm, status: itm.status === "important" ? "complete":"important" }
-          : itm
-      );
-      setToDo(upattask);
-  }
-
-  
+      itm.id === id
+        ? {
+            ...itm,
+            status: itm.status === "important" ? "complete" : "important",
+          }
+        : itm
+    );
+    setToDo(upattask);
+  };
 
   return (
     <>
@@ -99,8 +102,11 @@ function ToDo() {
             <p
               key={itm.id}
               style={{
-                color: itm.status === "complete"?"green":"red",
-                textDecoration: itm.status === "pending" || itm.status === "complete" ? "none" : "underline",
+                color: itm.status === "complete" ? "green" : "red",
+                textDecoration:
+                  itm.status === "pending" || itm.status === "complete"
+                    ? "none"
+                    : "underline",
               }}
             >
               {itm.name}
