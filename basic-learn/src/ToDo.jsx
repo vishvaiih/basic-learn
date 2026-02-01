@@ -3,6 +3,7 @@ import React, { useState } from "react";
 function ToDo() {
   const [task, setTask] = useState("");
   const [toDo, setToDo] = useState([]);
+  const [editId,setEditId] = useState("");
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -10,6 +11,7 @@ function ToDo() {
   };
 
   const handleAdd = () => {
+
     const nwtask = {
       id: Math.random() * Math.pow(5, 9),
       name: task,
@@ -20,7 +22,24 @@ function ToDo() {
     setTask("");
   };
 
-  console.log("toDo", toDo);
+
+  const handleEdit = (id) => {
+    setEditId(id);
+    const findTask = toDo?.find((itm) => itm.id === id)
+     setTask(findTask.name);
+  }
+
+  const handleUpdate = () => {
+    const upattask = toDo?.map((itm) => itm.id === editId ? {...itm,name:task} : itm)
+    setToDo(upattask);
+    setTask("")
+    setEditId("");
+  }
+
+  const handleCancl = () => {
+    setTask("")
+    setEditId("")
+  }
 
   return (
     <>
@@ -32,7 +51,14 @@ function ToDo() {
           style={{ marginRight: "10px" }}
           onChange={(e) => handleChange(e)}
         ></input>
-        <button onClick={handleAdd}> Add</button>
+        {!editId ? <button onClick={handleAdd}> Add</button> : (
+            <>
+            <button onClick = {handleCancl}>cancel</button>
+            <button onClick={handleUpdate}>Update</button>
+            </>
+            
+        )}
+        
       </div>
 
       {toDo.map((itm) => (
@@ -41,8 +67,8 @@ function ToDo() {
 
         <p key={itm.id} style={{color:"red"}}>{itm.name}</p>
           <div>
-          <button>edit</button>
-          <button>important</button>
+          <button onClick={() => handleEdit(itm.id)}>edit</button>
+          <button >important</button>
 
           <button>delete</button>
 
