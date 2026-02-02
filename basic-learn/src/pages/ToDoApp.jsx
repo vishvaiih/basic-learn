@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import LeftSide from "../Components/LeftSide";
+import RightSide from "../Components/RightSide";
 
 function ToDoApp() {
   return (
@@ -21,10 +22,12 @@ function ToDoApp() {
           - all in polished,fast UI.
         </Typography>
 
-        <Box>
-            <LeftSide/>
-        </Box>
+       
       </Box>
+      <Box sx={{display:"flex"}}>
+            <LeftSide/>
+            <RightSide/>
+        </Box>
     </Box>
   );
 }
