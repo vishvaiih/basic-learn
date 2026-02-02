@@ -2,9 +2,10 @@ import React from "react";
 import { AddTask, MainBox } from "./LeftSide";
 import { Box, Button, Typography, styled } from "@mui/material";
 import ChecklistOutlinedIcon from "@mui/icons-material/ChecklistOutlined";
+import { Trash2, Circle } from "lucide-react";
+import DeleteDialog from "./DeleteDialog";
 
-
-function RightSide() {
+function RightSide({ toDo,handleDelete }) {
   const Item = styled(Box)({
     width: "100%",
     border: "1px solid #d1d8be",
@@ -22,6 +23,9 @@ function RightSide() {
     minWidth: "28px",
     borderRadius: "100%",
     margin: " 0% 2% ",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   });
 
   const Btn = styled(Button)({
@@ -36,7 +40,6 @@ function RightSide() {
   });
 
   const Buton = styled(Button)({
-    
     height: "20px",
     minWidth: "70px",
     borderRadius: "30px",
@@ -44,7 +47,21 @@ function RightSide() {
     fontSize: "10px",
     color: "black",
     textTransform: "capitalize",
+    marginRight: "5%",
   });
+
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    
+  };
+
 
   return (
     <>
@@ -54,24 +71,31 @@ function RightSide() {
           <Typography sx={{ fontSize: "12px" }}>your tasks</Typography>
         </AddTask>
 
-        <Item>
-          <AddTask >
-            <Complete></Complete>
-            <Box>
-              <Typography sx={{ fontSize: "11px" }}>
-                plan the week (top 3 priorities)
-              </Typography>
-              <Btn>mon,feb2</Btn>
-            </Box>
-          </AddTask>
+        {toDo?.map((itm) => (
+            <>
+              <Item>
+            <AddTask sx={{ width: "50%" }}>
+              <Complete>
+                <Circle size={15} style={{ color: "#666b83" }} />
+              </Complete>
+              <Box>
+                <Typography sx={{ fontSize: "11px" }}>{itm.name}</Typography>
+                <Btn>mon,feb2</Btn>
+              </Box>
+            </AddTask>
 
-          <Box>
-            <Buton>medium</Buton>
-            <Trash2/>
-            
-          </Box>
-        </Item>
+            <AddTask sx={{ width: "50%", justifyContent: "flex-end" }}>
+              <Buton>{itm.status}</Buton>
+              <Trash2 size={15} style={{ marginRight: "2%" }} onClick={handleClickOpen}  />
+            </AddTask>
+          </Item>
+          <DeleteDialog open={open} handleClose={handleClose}  handleDelete={handleDelete} id={itm.id}/>  
+            </>
+         
+        ))}
       </MainBox>
+
+      
     </>
   );
 }

@@ -1,14 +1,53 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LeftSide from "../Components/LeftSide";
 import RightSide from "../Components/RightSide";
 
 function ToDoApp() {
+  const [task, setTask] = useState("");
+  const [toDo, setToDo] = useState([]);
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setTask(value);
+  };
+
+  const handleAdd = () => {
+    if (task.trim()) {
+      const nwtask = {
+        id: Math.random() * Math.pow(5, 9),
+        name: task,
+        status: "pending",
+      };
+
+      setToDo([...toDo, nwtask]);
+      setTask("");
+    }
+  };
+
+  useEffect(() => {
+    if (toDo.length > 0) {
+      localStorage.setItem("taskList", JSON.stringify(toDo));
+    }
+  }, [toDo]);
+
+  
+
+  //   useEffect(() => {
+  //     const getTask = JSON.parse(localStorage.getItem("taskList")) || [];
+  //     setToDo(getTask);
+  //   },[])
+
+  const handleDelete = (id) => {
+    console.log("id", id);
+    const findTask = toDo?.filter((itm) => itm.id !== id);
+    setToDo(findTask);
+  };
+
   return (
     <Box
       sx={{
         width: "60%",
-        border: "2px solid black",
         margin: "20px auto",
         height: "100vh",
       }}
@@ -21,13 +60,15 @@ function ToDoApp() {
           Search,set priorities add due dates and keep a clean view of progress
           - all in polished,fast UI.
         </Typography>
-
-       
       </Box>
-      <Box sx={{display:"flex"}}>
-            <LeftSide/>
-            <RightSide/>
-        </Box>
+      <Box sx={{ display: "flex" }}>
+        <LeftSide
+          handleChange={handleChange}
+          handleAdd={handleAdd}
+          task={task}
+        />
+        <RightSide toDo={toDo} handleDelete={handleDelete} />
+      </Box>
     </Box>
   );
 }

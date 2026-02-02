@@ -21,7 +21,7 @@ const Btn = styled(Button)({
   width: "100%",
   color: "white",
   borderRadius: "10px",
-  backgroundColor: "#4d2fb2",
+  backgroundColor: "#7d3bed",
   fontSize: "12px",
   textTransform: "capitalize",
   margin: "3% 3% 0% 0%",
@@ -35,7 +35,7 @@ const Field = styled(TextField)({
   },
 });
 
-function LeftSide() {
+function LeftSide({handleChange,handleAdd,task}) {
   return (
     <MainBox sx={{margin:"3% 3% 0% 0%"}}>
       <AddTask>
@@ -44,6 +44,8 @@ function LeftSide() {
       </AddTask>
 
       <Field
+        onChange={(e) => handleChange(e)}
+        value={task}
         fullWidth
         id="outlined-basic"
         placeholder="What needs to get done?"
@@ -55,7 +57,7 @@ function LeftSide() {
         }}
       />
 
-      <Btn>Add Task</Btn>
+      <Btn onClick={handleAdd}>Add Task</Btn>
     </MainBox>
   );
 }
