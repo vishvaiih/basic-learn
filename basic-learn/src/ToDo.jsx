@@ -23,11 +23,11 @@ function ToDo() {
     }
   };
 
-  const handleEdit = (id) => {
-    setEditId(id);
-    const findTask = toDo?.find((itm) => itm.id === id);
-    setTask(findTask.name);
-  };
+  // const handleEdit = (id) => {
+  //   setEditId(id);
+  //   const findTask = toDo?.find((itm) => itm.id === id);
+  //   setTask(findTask.name);
+  // };
 
   const handleUpdate = () => {
     const upattask = toDo?.map((itm) =>
@@ -43,31 +43,68 @@ function ToDo() {
     setEditId("");
   };
 
-  const handleImportant = (id) => {
-    const upattask = toDo?.map((itm) =>
-      itm.id === id
-        ? { ...itm, status: itm.status === "pending" ? "important" : "pending" }
-        : itm
-    );
-    setToDo(upattask);
-  };
+  // const handleImportant = (id) => {
+  //   const upattask = toDo?.map((itm) =>
+  //     itm.id === id
+  //       ? { ...itm, status: itm.status === "pending" ? "important" : "pending" }
+  //       : itm
+  //   );
+  //   setToDo(upattask);
+  // };
 
-  const handleDelete = (id) => {
-    const findTask = toDo?.filter((itm) => itm.id !== id);
-    setToDo(findTask);
-  };
+  // const handleDelete = (id) => {
+  //   const findTask = toDo?.filter((itm) => itm.id !== id);
+  //   setToDo(findTask);
+  // };
 
-  const handleComplte = (id) => {
-    const upattask = toDo?.map((itm) =>
-      itm.id === id
-        ? {
-            ...itm,
-            status: itm.status === "important" ? "complete" : "important",
-          }
-        : itm
-    );
-    setToDo(upattask);
-  };
+  // const handleComplte = (id) => {
+  //   const upattask = toDo?.map((itm) =>
+  //     itm.id === id
+  //       ? {
+  //           ...itm,
+  //           status: itm.status === "complete" ? "pending" : "complete",
+  //         }
+  //       : itm
+  //   );
+  //   setToDo(upattask);
+  // };
+
+  const commonFunction = (id,type) => {
+          
+    if(type == "Edit"){
+      setEditId(id);
+    const findTask = toDo?.find((itm) => itm.id === id);
+    setTask(findTask.name);
+    }
+
+    if(type == "Important"){
+      const upattask = toDo?.map((itm) =>
+            itm.id === id
+              ? { ...itm, status: itm.status === "pending" ? "important" : "pending" }
+              : itm
+          );
+          setToDo(upattask);
+    }
+
+    if(type == "delete"){
+      const findTask = toDo?.filter((itm) => itm.id !== id);
+        setToDo(findTask);
+    }
+
+    if(type == "Complete" ){
+      const upattask = toDo?.map((itm) =>
+            itm.id === id
+              ? {
+                  ...itm,
+                  status: itm.status === "complete" ? "pending" : "complete",
+                }
+              : itm
+          );
+          setToDo(upattask);
+    }
+
+        
+  }
 
   return (
     <>
@@ -112,12 +149,12 @@ function ToDo() {
               {itm.name}
             </p>
             <div>
-              <button onClick={() => handleEdit(itm.id)}>edit</button>
-              <button onClick={() => handleImportant(itm.id)}>important</button>
+              <button onClick={() => commonFunction(itm.id,"Edit")}>edit</button>
+              <button onClick={() => commonFunction(itm.id,"Important")}>important</button>
 
-              <button onClick={() => handleDelete(itm.id)}>delete</button>
+              <button onClick={() => commonFunction(itm.id,"delete")}>delete</button>
 
-              <button onClick={() => handleComplte(itm.id)}>complete</button>
+              <button onClick={() => commonFunction(itm.id,"Complete")}>complete</button>
             </div>
           </div>
         </>
