@@ -7,7 +7,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { styled } from "@mui/material";
 
-function DeleteDialog({open,handleClose,handleDelete,id}) {
+function DeleteDialog({open,handleClose,handleDelete,title,subTitle,btnText}) {
+
 
     const Btn = styled(Button)({
         width: "20%",
@@ -45,19 +46,19 @@ function DeleteDialog({open,handleClose,handleDelete,id}) {
     aria-labelledby="responsive-dialog-title"
   >
     <DialogTitle id="responsive-dialog-title">
-      Delete this task?
+      {title}
     </DialogTitle>
     <DialogContent>
       <DialogContentText>
-        This can't be undone.
+        {subTitle}
       </DialogContentText>
     </DialogContent>
     <DialogActions>
       <Btn autoFocus onClick={handleClose}>
        cancel
       </Btn>
-      <Buton onClick={() => handleDelete(id)} autoFocus>
-        Delete
+      <Buton onClick={handleDelete} autoFocus>
+     {btnText}
       </Buton>
     </DialogActions>
   </Dialog>

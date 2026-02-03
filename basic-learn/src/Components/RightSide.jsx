@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { AddTask, MainBox } from "./LeftSide";
 import { Box, Button, Typography, styled } from "@mui/material";
 import ChecklistOutlinedIcon from "@mui/icons-material/ChecklistOutlined";
-import { Trash2, Circle } from "lucide-react";
+import { Trash2, Circle, Check } from "lucide-react";
 import DeleteDialog from "./DeleteDialog";
 
-function RightSide({ toDo,handleDelete }) {
+function RightSide({ toDo,setToDo}) {
   const Item = styled(Box)({
     width: "100%",
     border: "1px solid #d1d8be",
@@ -43,24 +43,56 @@ function RightSide({ toDo,handleDelete }) {
     height: "20px",
     minWidth: "70px",
     borderRadius: "30px",
-    backgroundColor: "#ee3a3a",
+   
     fontSize: "10px",
     color: "black",
     textTransform: "capitalize",
     marginRight: "5%",
   });
 
+  const [open, setOpen] = useState(false);
+  const [completeDialogOpen,setCompleteDialogOpen] = useState(false);
+  const [selectedTask,setSelectedTask] = useState("");
 
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
+  const handleClickOpen = (id) => {
+    setSelectedTask(id);
     setOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
-    
+    setSelectedTask("");
+    setOpen(false);   
   };
+
+  const handleOpen = (id) => {
+     setSelectedTask(id);
+    setCompleteDialogOpen(true)
+  }
+
+  const handlecompleteClose = () => {
+    setSelectedTask("");
+    setCompleteDialogOpen(false)
+  }
+
+  const handleDelete = () => {
+    const findTask = toDo?.filter((itm) => itm.id !== selectedTask);
+    setToDo(findTask);
+    setOpen(false)
+  };
+
+  const handleComplete = () => {
+    console.log(".....")
+      const upattask = toDo?.map((itm) =>
+        itm.id === selectedTask
+          ? {
+              ...itm,
+              status: itm.status === "complete" ? "pending" : "complete",
+            }
+          : itm
+      );
+      setToDo(upattask);
+      setCompleteDialogOpen(false)
+    };
 
 
   return (
@@ -75,25 +107,30 @@ function RightSide({ toDo,handleDelete }) {
             <>
               <Item>
             <AddTask sx={{ width: "50%" }}>
-              <Complete>
-                <Circle size={15} style={{ color: "#666b83" }} />
+              <Complete onClick = {() => handleOpen(itm.id)}>
+                <Circle size={15} style={{ color: itm.status == "complete" ? "#75b06f" :"#666b83",fontWeight:"bold",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                   {itm.status == "complete" ?  <Check size={24} /> : null}
+                  </Circle>
               </Complete>
               <Box>
-                <Typography sx={{ fontSize: "11px" }}>{itm.name}</Typography>
+                <Typography sx={{ fontSize: "11px",textDecoration:itm.status == "complete" ? "line-through" : "none" }}>{itm.name}</Typography>
                 <Btn>mon,feb2</Btn>
               </Box>
             </AddTask>
 
             <AddTask sx={{ width: "50%", justifyContent: "flex-end" }}>
-              <Buton>{itm.status}</Buton>
-              <Trash2 size={15} style={{ marginRight: "2%" }} onClick={handleClickOpen}  />
+              <Buton sx={{ backgroundColor: itm.status =="complete" ? "#75b06f" : "#ee3a3a"}}>{itm.status}</Buton>
+              <Trash2 size={15} style={{ marginRight: "2%" }} onClick={()=> handleClickOpen(itm.id)}  />
             </AddTask>
-          </Item>
-          <DeleteDialog open={open} handleClose={handleClose}  handleDelete={handleDelete} id={itm.id}/>  
+           </Item>
+          
             </>
          
         ))}
       </MainBox>
+
+      <DeleteDialog open={open} handleClose={handleClose}  handleDelete={handleDelete} title=" Delete this task?" subTitle=" This can't be undone." btnText =" Delete" />  
+      <DeleteDialog open={completeDialogOpen}  handleClose={handlecompleteClose} handleDelete={handleComplete} title="Complete this task?" subTitle=""  btnText="Complete" />
 
       
     </>

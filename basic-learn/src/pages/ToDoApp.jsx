@@ -6,6 +6,7 @@ import RightSide from "../Components/RightSide";
 function ToDoApp() {
   const [task, setTask] = useState("");
   const [toDo, setToDo] = useState([]);
+   
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -31,18 +32,14 @@ function ToDoApp() {
     }
   }, [toDo]);
 
-  
+
 
   //   useEffect(() => {
   //     const getTask = JSON.parse(localStorage.getItem("taskList")) || [];
   //     setToDo(getTask);
   //   },[])
 
-  const handleDelete = (id) => {
-    console.log("id", id);
-    const findTask = toDo?.filter((itm) => itm.id !== id);
-    setToDo(findTask);
-  };
+ 
 
   return (
     <Box
@@ -67,7 +64,7 @@ function ToDoApp() {
           handleAdd={handleAdd}
           task={task}
         />
-        <RightSide toDo={toDo} handleDelete={handleDelete} />
+        <RightSide toDo={toDo} setToDo={setToDo} />
       </Box>
     </Box>
   );

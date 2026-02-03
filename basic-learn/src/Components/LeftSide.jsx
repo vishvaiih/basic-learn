@@ -56,7 +56,6 @@ function LeftSide({handleChange,handleAdd,task}) {
           },
         }}
       />
-
       <Btn onClick={handleAdd}>Add Task</Btn>
     </MainBox>
   );
