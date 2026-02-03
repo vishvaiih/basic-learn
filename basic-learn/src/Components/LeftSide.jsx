@@ -6,8 +6,10 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 export const MainBox = styled(Box)({
   width: "60%",
   border: "1px solid #d1d8be",
-  minHeight: "55vh",
+  maxHeight: "60vh",
   borderRadius: "15px",
+  overflowY:"auto",
+  overflowX:"hidden",
 //   marginTop: "4%",
   padding: "2%",
 });
@@ -32,6 +34,9 @@ const Field = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     height: "32px",
     borderRadius: "10px",
+    '&:hover fieldset': {
+      borderColor: '#7d3bed', 
+    }
   },
 });
 
@@ -39,9 +44,10 @@ function LeftSide({handleChange,handleAdd,task}) {
   return (
     <MainBox sx={{margin:"3% 3% 0% 0%"}}>
       <AddTask>
-        <AddOutlinedIcon sx={{ fontSize: "12px", marginRight: "2%" }} />
+        <AddOutlinedIcon sx={{ fontSize: "12px", marginRight: "2%",color:"#7d3bed" }} />
         <Typography sx={{ fontSize: "12px" }}>Add a task</Typography>
       </AddTask>
+
 
       <Field
         onChange={(e) => handleChange(e)}
@@ -53,9 +59,11 @@ function LeftSide({handleChange,handleAdd,task}) {
         InputProps={{
           style: {
             fontSize: 11,
+           
           },
         }}
       />
+      
       <Btn onClick={handleAdd}>Add Task</Btn>
     </MainBox>
   );

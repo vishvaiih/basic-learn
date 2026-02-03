@@ -46,7 +46,7 @@ function ToDoApp() {
       sx={{
         width: "60%",
         margin: "20px auto",
-        height: "100vh",
+        maxHeight: "80%",
       }}
     >
       <Box sx={{ width: "60%" }}>

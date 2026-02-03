@@ -97,12 +97,14 @@ function RightSide({ toDo,setToDo}) {
       setCompleteDialogOpen(false)
     };
 
+    
+
 
   return (
     <>
       <MainBox sx={{ width: "100%", margin: "3% 0% 0% 0%" }}>
         <AddTask>
-          <ChecklistOutlinedIcon sx={{ fontSize: "12px", marginRight: "2%" }} />
+          <ChecklistOutlinedIcon sx={{ fontSize: "12px", marginRight: "2%" ,color:"#7d3bed"}} />
           <Typography sx={{ fontSize: "12px" }}>your tasks</Typography>
         </AddTask>
 
