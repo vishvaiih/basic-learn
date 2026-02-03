@@ -29,7 +29,7 @@ const Btn = styled(Button)({
   margin: "3% 3% 0% 0%",
 });
 
-const Field = styled(TextField)({
+export const Field = styled(TextField)({
   marginTop: "4%",
   "& .MuiOutlinedInput-root": {
     height: "32px",
@@ -40,9 +40,9 @@ const Field = styled(TextField)({
   },
 });
 
-function LeftSide({ handleChange, handleAdd, task }) {
+function LeftSide({ handleChange, handleAdd, task,setPriority,priority }) {
 
-  const [priority, setPriority] = useState("Medium Priority");
+
 
   const handlePriorityChange = (event) => {
     console.log("....",event.target.value);

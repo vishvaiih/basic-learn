@@ -6,7 +6,8 @@ import RightSide from "../Components/RightSide";
 function ToDoApp() {
   const [task, setTask] = useState("");
   const [toDo, setToDo] = useState([]);
-   
+
+  const [priority, setPriority] = useState("Medium Priority");
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -19,8 +20,9 @@ function ToDoApp() {
         id: Math.random() * Math.pow(5, 9),
         name: task,
         status: "pending",
+        priority: priority,
       };
-
+      
       setToDo([...toDo, nwtask]);
       setTask("");
     }
@@ -32,19 +34,15 @@ function ToDoApp() {
     }
   }, [toDo]);
 
-
-
   //   useEffect(() => {
   //     const getTask = JSON.parse(localStorage.getItem("taskList")) || [];
   //     setToDo(getTask);
   //   },[])
 
- 
-
   return (
     <Box
       sx={{
-        width: "60%",
+        width: "70%",
         margin: "20px auto",
         maxHeight: "80%",
       }}
@@ -63,6 +61,8 @@ function ToDoApp() {
           handleChange={handleChange}
           handleAdd={handleAdd}
           task={task}
+          priority={priority}
+          setPriority={setPriority}
         />
         <RightSide toDo={toDo} setToDo={setToDo} />
       </Box>
