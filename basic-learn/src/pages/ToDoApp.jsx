@@ -8,6 +8,11 @@ function ToDoApp() {
   const [toDo, setToDo] = useState([]);
 
   const [priority, setPriority] = useState("Medium Priority");
+  const [rightSidePriority,setRightSidePriority] = useState("All")
+
+  const optionOfPriority = ["Low Priority", "Medium Priority", "High Priority"];
+
+  const optionOfPriorityOfRightSide = ["All","Low Priority", "Medium Priority", "High Priority"]
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -63,8 +68,9 @@ function ToDoApp() {
           task={task}
           priority={priority}
           setPriority={setPriority}
+          optionOfPriority={optionOfPriority}
         />
-        <RightSide toDo={toDo} setToDo={setToDo} />
+        <RightSide toDo={toDo} setToDo={setToDo} optionOfPriority={optionOfPriorityOfRightSide} priority={rightSidePriority} setRightSidePriority={setRightSidePriority} />
       </Box>
     </Box>
   );
