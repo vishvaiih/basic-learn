@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { AddTask, MainBox } from "./LeftSide";
 import { Box, Button, Typography, styled } from "@mui/material";
 import ChecklistOutlinedIcon from "@mui/icons-material/ChecklistOutlined";
-import { Trash2, Circle, Check } from "lucide-react";
+import { Trash2, Check, Circle, CircleCheck } from "lucide-react";
 import DeleteDialog from "./DeleteDialog";
+import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
+import CheckIcon from '@mui/icons-material/Check';
 
 function RightSide({ toDo,setToDo}) {
   const Item = styled(Box)({
@@ -50,6 +52,7 @@ function RightSide({ toDo,setToDo}) {
     marginRight: "5%",
   });
 
+ 
   const [open, setOpen] = useState(false);
   const [completeDialogOpen,setCompleteDialogOpen] = useState(false);
   const [selectedTask,setSelectedTask] = useState("");
@@ -108,9 +111,22 @@ function RightSide({ toDo,setToDo}) {
               <Item>
             <AddTask sx={{ width: "50%" }}>
               <Complete onClick = {() => handleOpen(itm.id)}>
-                <Circle size={15} style={{ color: itm.status == "complete" ? "#75b06f" :"#666b83",fontWeight:"bold",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                {
+                  itm.status == "complete" ? (
+                    <CircleCheck  size={20} style={{color:"#75b06f"}}/>
+                  ):
+                  (
+                   
+                    <Circle  size={20}  style={{color:"#666b83"}}/>
+                  )
+                }
+                {/* <Circle size={15} style={{ color: itm.status == "complete" ? "#75b06f" :"#666b83",fontWeight:"bold",display:"flex",alignItems:"center",justifyContent:"center"}}>
                    {itm.status == "complete" ?  <Check size={24} /> : null}
-                  </Circle>
+                  </Circle> */}
+              
+                  {/* <PanoramaFishEyeIcon  style={{ color: itm.status == "complete" ? "#75b06f" :"#666b83",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                    {itm.status == "complete" ?  <CheckIcon size={26} /> : null}
+                  </PanoramaFishEyeIcon> */}
               </Complete>
               <Box>
                 <Typography sx={{ fontSize: "11px",textDecoration:itm.status == "complete" ? "line-through" : "none" }}>{itm.name}</Typography>
