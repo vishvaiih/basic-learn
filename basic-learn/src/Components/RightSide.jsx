@@ -80,6 +80,8 @@ function RightSide({
   const [searchfilterFromAllList, setSearchfilterFromAllList] = useState([]);
   const [searchfilterWiseData, setSearchfilterWiseData] = useState([]);
 
+  const [list, setList] = useState([]);
+
   const handleClickOpen = (id) => {
     setSelectedTask(id);
     setOpen(true);
@@ -139,13 +141,43 @@ function RightSide({
     console.log("searchfilterFromAllList", searchfilterFromAllList);
     setSearchfilterFromAllList(searchfilterFromAllList);
 
+    console.log("vbvb",filterWiseData)
+
     const searchfilterWiseData = filterWiseData.filter((itm) =>
-      search.includes(itm.name)
+      itm.name.includes(search)
     );
     console.log(searchfilterWiseData, "searchfilterWiseData");
     setSearchfilterWiseData(searchfilterWiseData);
-    
-  }, [search]);
+  }, [search, toDo, filterWiseData]);
+
+
+
+  useEffect(() => {
+    let list = [];
+
+    if (priority === "All" && search === "") {
+      list = toDo;
+    } else if (priority === "All" && search !== "") {
+      console.log("...",searchfilterFromAllList);
+      list = searchfilterFromAllList;
+    } else if (priority === "High Priority" || priority === "Low Priority"|| priority === "Medium Priority" && search === "") {
+      console.log("????",searchfilterWiseData);
+      list = searchfilterWiseData;
+    } else {
+      list = filterWiseData;
+    }
+
+    setList(list);
+  }, [
+    priority,
+    toDo,
+    searchfilterFromAllList,
+    searchfilterWiseData,
+    filterWiseData,
+    search,
+  ]);
+
+  console.log("list",list)
 
   return (
     <>
@@ -181,6 +213,14 @@ function RightSide({
           </Box>
         </AddTask>
 
+        {list.map((itm) => (
+          <ItemList
+            handleClickOpen={handleClickOpen}
+            handleOpen={handleOpen}
+            itm={itm}
+          />
+        ))}
+
         {/* {priority === "All"
           ? toDo.map((itm) => (
               <ItemList
@@ -197,7 +237,7 @@ function RightSide({
               />
             ))} */}
 
-          {
+        {/* {
             priority === "All"
             ? toDo.map((itm) => (
                 <ItemList
@@ -206,7 +246,7 @@ function RightSide({
                   itm={itm}
                 />
               )):(
-                priority === "All" && search 
+                priority === "All" && search
               ) ? (
                 searchfilterFromAllList.map((itm) => (
                   <ItemList
@@ -232,7 +272,7 @@ function RightSide({
                   />
                 ))
               )
-          }  
+          }   */}
       </MainBox>
 
       <DeleteDialog
