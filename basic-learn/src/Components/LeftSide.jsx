@@ -1,7 +1,12 @@
 import { Box, Button, styled, TextField, Typography } from "@mui/material";
-import React ,{useState} from "react";
+import React, { useState } from "react";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import SelectOption from "./SelectOption";
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 
 export const MainBox = styled(Box)({
   width: "60%",
@@ -40,16 +45,21 @@ export const Field = styled(TextField)({
   },
 });
 
-function LeftSide({ handleChange, handleAdd, task,setPriority,priority,optionOfPriority }) {
 
 
-
+function LeftSide({
+  handleChange,
+  handleAdd,
+  task,
+  setPriority,
+  priority,
+  optionOfPriority,
+}) {
   const handlePriorityChange = (event) => {
-    console.log("....",event.target.value);
+    console.log("....", event.target.value);
     setPriority(event.target.value);
   };
 
- 
   return (
     <MainBox sx={{ margin: "3% 3% 0% 0%" }}>
       <AddTask>
@@ -72,8 +82,52 @@ function LeftSide({ handleChange, handleAdd, task,setPriority,priority,optionOfP
           },
         }}
       />
+      <Box sx={{display:"flex",alignItems:"center"}}>
 
-      <SelectOption priority={priority} setPriority={setPriority} handlePriorityChange={handlePriorityChange} optionOfPriority={optionOfPriority}/>
+        <SelectOption
+           
+          priority={priority}
+          setPriority={setPriority}
+          handlePriorityChange={handlePriorityChange}
+          optionOfPriority={optionOfPriority}
+        />
+        <Box sx={{marginLeft:"4%"}}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer
+              components={["DatePicker"]}
+            >
+              <DatePicker  
+              name="startDate"
+              // slotProps={{
+              //   textField: {
+              //     sx: {
+              //       "& .MuiOutlinedInput-root": {
+              //         height: "32px",
+              //         width: "0%",
+              //         borderRadius: "16px",
+                      
+              //         "& fieldset": {
+              //           borderRadius: "16px",
+              //           border: "2px solid #0070D8" 
+              //         },
+              //         "&:hover fieldset": {
+              //             borderColor: "#7d3bed", 
+              //         },
+              //         "&.Mui-focused fieldset": {
+              //             borderColor: "#333 !important",
+              //             borderWidth: 2,
+              //         },
+
+              //       },
+              //     },
+              //   },
+              // }} 
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+        </Box>
+      </Box>
+
       <Btn onClick={handleAdd}>Add Task</Btn>
     </MainBox>
   );

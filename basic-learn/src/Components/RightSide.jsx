@@ -160,11 +160,10 @@ function RightSide({
     } else if (priority === "All" && search !== "") {
       console.log("...",searchfilterFromAllList);
       list = searchfilterFromAllList;
-    } else if (priority === "High Priority" || priority === "Low Priority"|| priority === "Medium Priority" && search === "") {
-      console.log("????",searchfilterWiseData);
-      list = searchfilterWiseData;
-    } else {
+    } else if ((priority === "High Priority" || priority === "Low Priority"|| priority === "Medium Priority") && search === "") {
       list = filterWiseData;
+    } else {
+      list = searchfilterWiseData;
     }
 
     setList(list);
