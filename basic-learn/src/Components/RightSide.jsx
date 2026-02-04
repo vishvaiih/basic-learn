@@ -70,13 +70,15 @@ function RightSide({
   priority,
   setRightSidePriority,
   filterWiseData,
-  setFilterWiseData
+  setFilterWiseData,
 }) {
   const [open, setOpen] = useState(false);
   const [completeDialogOpen, setCompleteDialogOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState("");
 
-  const[search,setSearch] = useState("");
+  const [search, setSearch] = useState("");
+  const [searchfilterFromAllList, setSearchfilterFromAllList] = useState([]);
+  const [searchfilterWiseData, setSearchfilterWiseData] = useState([]);
 
   const handleClickOpen = (id) => {
     setSelectedTask(id);
@@ -99,7 +101,7 @@ function RightSide({
   };
 
   const handleDelete = () => {
-    console.log("......")
+    console.log("......");
     const findTask = toDo?.filter((itm) => itm.id !== selectedTask);
     setToDo(findTask);
     setOpen(false);
@@ -120,29 +122,31 @@ function RightSide({
   };
 
   const handlePriorityChange = (event) => {
-  
     setRightSidePriority(event.target.value);
   };
 
   useEffect(() => {
-        
-      const filterWiseData = toDo.filter((itm) => itm.priority === priority);
-     
-  
-      setFilterWiseData(filterWiseData)
-    },[priority])
+    const filterWiseData = toDo.filter((itm) => itm.priority === priority);
 
-    useEffect(() => {
+    setFilterWiseData(filterWiseData);
+  }, [priority]);
 
-      const  searchfilter = toDo.filter((itm) =>search.includes(itm.name));
-      console.log("searchfilter",searchfilter);
-      
 
-      const searchfilterWiseData = filterWiseData.filter((itm) => search.includes(itm.name));
-      console.log(searchfilterWiseData,"searchfilterWiseData")
-    },[search])
-  
-  
+  useEffect(() => {
+    const searchfilterFromAllList = toDo.filter((itm) =>
+      search.includes(itm.name)
+    );
+    console.log("searchfilterFromAllList", searchfilterFromAllList);
+    setSearchfilterFromAllList(searchfilterFromAllList);
+
+    const searchfilterWiseData = filterWiseData.filter((itm) =>
+      search.includes(itm.name)
+    );
+    console.log(searchfilterWiseData, "searchfilterWiseData");
+    setSearchfilterWiseData(searchfilterWiseData);
+    
+  }, [search]);
+
   return (
     <>
       <MainBox sx={{ width: "100%", margin: "3% 0% 0% 0%" }}>
@@ -156,8 +160,8 @@ function RightSide({
 
           <Box sx={{ display: "flex", width: "70%", alignItems: "center" }}>
             <Field
-            value={search}
-             onChange = {(e) => setSearch(e.target.value)}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               id="outlined-basic"
               placeholder="Search tasks..."
               InputProps={{
@@ -177,7 +181,7 @@ function RightSide({
           </Box>
         </AddTask>
 
-        {priority === "All"
+        {/* {priority === "All"
           ? toDo.map((itm) => (
               <ItemList
                 handleClickOpen={handleClickOpen}
@@ -191,7 +195,44 @@ function RightSide({
                 handleOpen={handleOpen}
                 itm={itm}
               />
-            ))}
+            ))} */}
+
+          {
+            priority === "All"
+            ? toDo.map((itm) => (
+                <ItemList
+                  handleClickOpen={handleClickOpen}
+                  handleOpen={handleOpen}
+                  itm={itm}
+                />
+              )):(
+                priority === "All" && search 
+              ) ? (
+                searchfilterFromAllList.map((itm) => (
+                  <ItemList
+                    handleClickOpen={handleClickOpen}
+                    handleOpen={handleOpen}
+                    itm={itm}
+                  />
+                ))
+              ):(
+                priority === "High Priority" || priority === "Medium Priority" || priority === "Low Priority" && search
+              )?( searchfilterWiseData.map((itm) => (
+                <ItemList
+                  handleClickOpen={handleClickOpen}
+                  handleOpen={handleOpen}
+                  itm={itm}
+                />
+              ))):(
+                filterWiseData.map((itm) => (
+                  <ItemList
+                    handleClickOpen={handleClickOpen}
+                    handleOpen={handleOpen}
+                    itm={itm}
+                  />
+                ))
+              )
+          }  
       </MainBox>
 
       <DeleteDialog
