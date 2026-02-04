@@ -2,10 +2,14 @@ import { Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import LeftSide from "../Components/LeftSide";
 import RightSide from "../Components/RightSide";
+import dayjs from 'dayjs';
 
 function ToDoApp() {
   const [task, setTask] = useState("");
   const [toDo, setToDo] = useState([]);
+  const [date,setDate] = useState(dayjs('2022-04-17'));
+
+  
 
   const [priority, setPriority] = useState("Medium Priority");
   const [rightSidePriority,setRightSidePriority] = useState("All")
@@ -29,6 +33,7 @@ function ToDoApp() {
         name: task,
         status: "pending",
         priority: priority,
+        // date:date,
       };
 
       
@@ -101,6 +106,9 @@ function ToDoApp() {
           priority={priority}
           setPriority={setPriority}
           optionOfPriority={optionOfPriority}
+          date={date}
+          setDate={setDate}
+
         />
         <RightSide toDo={toDo} setToDo={setToDo} optionOfPriority={optionOfPriorityOfRightSide} priority={rightSidePriority} setRightSidePriority={setRightSidePriority} filterWiseData={filterWiseData} setFilterWiseData={setFilterWiseData} />
       </Box>

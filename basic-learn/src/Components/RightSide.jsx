@@ -214,6 +214,7 @@ function RightSide({
 
         {list.map((itm) => (
           <ItemList
+          key={itm.id}
             handleClickOpen={handleClickOpen}
             handleOpen={handleOpen}
             itm={itm}

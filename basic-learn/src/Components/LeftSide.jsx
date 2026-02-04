@@ -2,11 +2,10 @@ import { Box, Button, styled, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import SelectOption from "./SelectOption";
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 export const MainBox = styled(Box)({
   width: "60%",
@@ -45,8 +44,6 @@ export const Field = styled(TextField)({
   },
 });
 
-
-
 function LeftSide({
   handleChange,
   handleAdd,
@@ -54,11 +51,15 @@ function LeftSide({
   setPriority,
   priority,
   optionOfPriority,
+  date,
+  setDate,
 }) {
   const handlePriorityChange = (event) => {
     console.log("....", event.target.value);
     setPriority(event.target.value);
   };
+
+  console.log("date.$D",date.$D);
 
   return (
     <MainBox sx={{ margin: "3% 3% 0% 0%" }}>
@@ -82,48 +83,33 @@ function LeftSide({
           },
         }}
       />
-      <Box sx={{display:"flex",alignItems:"center"}}>
-
+      <Box sx={{ display: "flex", alignItems: "center" }}>
         <SelectOption
-           
           priority={priority}
           setPriority={setPriority}
           handlePriorityChange={handlePriorityChange}
           optionOfPriority={optionOfPriority}
         />
-        <Box sx={{marginLeft:"4%"}}>
+        <Box sx={{ marginLeft: "4%" }}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer
-              components={["DatePicker"]}
-            >
-              <DatePicker  
+            <DatePicker
+               value={date}
+               onChange={(newValue) => setDate(newValue)}
               name="startDate"
-              // slotProps={{
-              //   textField: {
-              //     sx: {
-              //       "& .MuiOutlinedInput-root": {
-              //         height: "32px",
-              //         width: "0%",
-              //         borderRadius: "16px",
-                      
-              //         "& fieldset": {
-              //           borderRadius: "16px",
-              //           border: "2px solid #0070D8" 
-              //         },
-              //         "&:hover fieldset": {
-              //             borderColor: "#7d3bed", 
-              //         },
-              //         "&.Mui-focused fieldset": {
-              //             borderColor: "#333 !important",
-              //             borderWidth: 2,
-              //         },
-
-              //       },
-              //     },
-              //   },
-              // }} 
-              />
-            </DemoContainer>
+              slotProps={{
+                textField: {
+                  size: "small",
+                  sx: {
+                    width: "150px",
+                    height: "32px",
+                    "& .MuiOutlinedInput-root": {
+                      height: "15px",
+                      borderRadius: "10px",
+                    },
+                  },
+                },
+              }}
+            />
           </LocalizationProvider>
         </Box>
       </Box>
