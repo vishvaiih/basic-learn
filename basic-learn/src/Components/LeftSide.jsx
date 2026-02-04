@@ -59,7 +59,7 @@ function LeftSide({
     setPriority(event.target.value);
   };
 
-  console.log("date.$D",date.$D);
+  console.log("date",date);
 
   return (
     <MainBox sx={{ margin: "3% 3% 0% 0%" }}>

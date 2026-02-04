@@ -32,7 +32,7 @@ function ItemList({handleClickOpen,handleOpen,itm}) {
         >
           {itm.name}
         </Typography>
-        <Btn>mon,feb2</Btn>
+        <Btn>{itm.date}</Btn>
       </Box>
     </AddTask>
 

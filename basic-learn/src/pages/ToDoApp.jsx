@@ -9,7 +9,14 @@ function ToDoApp() {
   const [toDo, setToDo] = useState([]);
   const [date,setDate] = useState(dayjs('2022-04-17'));
 
+  // const today = new Date();
+  // const day = String(today.getDate()).padStart(2, '0');
+  // const month = String(today.getMonth() + 1).padStart(2, '0'); 
+  // const year = today.getFullYear();
   
+  //   const [date,setDate] = useState(`${day}/${month}/${year}`);
+  //   console.log("date",date);
+
 
   const [priority, setPriority] = useState("Medium Priority");
   const [rightSidePriority,setRightSidePriority] = useState("All")
@@ -33,8 +40,13 @@ function ToDoApp() {
         name: task,
         status: "pending",
         priority: priority,
-        // date:date,
+        date:date.$d.toLocaleDateString('en-US', {
+          weekday: 'short',
+          month: 'short',
+          day: 'numeric'
+        })
       };
+      
 
       
       let highPriorityTask = toDo.filter((itm) => itm.priority === "High Priority" );
