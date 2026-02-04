@@ -70,10 +70,13 @@ function RightSide({
   priority,
   setRightSidePriority,
   filterWiseData,
+  setFilterWiseData
 }) {
   const [open, setOpen] = useState(false);
   const [completeDialogOpen, setCompleteDialogOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState("");
+
+  const[search,setSearch] = useState("");
 
   const handleClickOpen = (id) => {
     setSelectedTask(id);
@@ -96,6 +99,7 @@ function RightSide({
   };
 
   const handleDelete = () => {
+    console.log("......")
     const findTask = toDo?.filter((itm) => itm.id !== selectedTask);
     setToDo(findTask);
     setOpen(false);
@@ -116,10 +120,29 @@ function RightSide({
   };
 
   const handlePriorityChange = (event) => {
-    console.log("....", event.target.value);
+  
     setRightSidePriority(event.target.value);
   };
 
+  useEffect(() => {
+        
+      const filterWiseData = toDo.filter((itm) => itm.priority === priority);
+     
+  
+      setFilterWiseData(filterWiseData)
+    },[priority])
+
+    useEffect(() => {
+
+      const  searchfilter = toDo.filter((itm) =>search.includes(itm.name));
+      console.log("searchfilter",searchfilter);
+      
+
+      const searchfilterWiseData = filterWiseData.filter((itm) => search.includes(itm.name));
+      console.log(searchfilterWiseData,"searchfilterWiseData")
+    },[search])
+  
+  
   return (
     <>
       <MainBox sx={{ width: "100%", margin: "3% 0% 0% 0%" }}>
@@ -133,6 +156,8 @@ function RightSide({
 
           <Box sx={{ display: "flex", width: "70%", alignItems: "center" }}>
             <Field
+            value={search}
+             onChange = {(e) => setSearch(e.target.value)}
               id="outlined-basic"
               placeholder="Search tasks..."
               InputProps={{

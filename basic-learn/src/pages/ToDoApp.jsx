@@ -64,15 +64,17 @@ function ToDoApp() {
       setToDo(getTask);
     },[])
 
-  useEffect(() => {
+    // console.log("rightSidePriority",rightSidePriority)
+
+  // useEffect(() => {
       
-    const filterWiseData = toDo.filter((itm) => itm.priority === priority);
-    console.log("filterWiseData",filterWiseData);
+  //   const filterWiseData = toDo.filter((itm) => itm.priority === rightSidePriority);
+  //   console.log("filterWiseData",filterWiseData);
 
-    setFilterWiseData(filterWiseData)
-  },[priority])
+  //   setFilterWiseData(filterWiseData)
+  // },[rightSidePriority])
 
- console.log("filterWiseData",filterWiseData);
+//  console.log("filterWiseData",filterWiseData);
 
   return (
     <Box
@@ -100,7 +102,7 @@ function ToDoApp() {
           setPriority={setPriority}
           optionOfPriority={optionOfPriority}
         />
-        <RightSide toDo={toDo} setToDo={setToDo} optionOfPriority={optionOfPriorityOfRightSide} priority={rightSidePriority} setRightSidePriority={setRightSidePriority} filterWiseData={filterWiseData} />
+        <RightSide toDo={toDo} setToDo={setToDo} optionOfPriority={optionOfPriorityOfRightSide} priority={rightSidePriority} setRightSidePriority={setRightSidePriority} filterWiseData={filterWiseData} setFilterWiseData={setFilterWiseData} />
       </Box>
     </Box>
   );
