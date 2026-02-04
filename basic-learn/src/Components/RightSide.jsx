@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AddTask, MainBox } from "./LeftSide";
 import { Box, Button, TextField, Typography, styled } from "@mui/material";
 import ChecklistOutlinedIcon from "@mui/icons-material/ChecklistOutlined";
 import DeleteDialog from "./DeleteDialog";
 import InputAdornment from "@mui/material/InputAdornment";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 import SelectOption from "./SelectOption";
 import ItemList from "./ItemList";
 
@@ -52,9 +52,9 @@ export const Buton = styled(Button)({
 });
 
 const Field = styled(TextField)({
-  marginRight:"2%",
+  marginRight: "2%",
   "& .MuiOutlinedInput-root": {
-    width:"100%",
+    width: "100%",
     height: "32px",
     borderRadius: "10px",
     "&:hover fieldset": {
@@ -63,9 +63,14 @@ const Field = styled(TextField)({
   },
 });
 
-function RightSide({ toDo, setToDo,optionOfPriority,priority,setRightSidePriority }) {
-  
-
+function RightSide({
+  toDo,
+  setToDo,
+  optionOfPriority,
+  priority,
+  setRightSidePriority,
+  filterWiseData,
+}) {
   const [open, setOpen] = useState(false);
   const [completeDialogOpen, setCompleteDialogOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState("");
@@ -111,7 +116,7 @@ function RightSide({ toDo, setToDo,optionOfPriority,priority,setRightSidePriorit
   };
 
   const handlePriorityChange = (event) => {
-    console.log("....",event.target.value);
+    console.log("....", event.target.value);
     setRightSidePriority(event.target.value);
   };
 
@@ -126,7 +131,7 @@ function RightSide({ toDo, setToDo,optionOfPriority,priority,setRightSidePriorit
             <Typography sx={{ fontSize: "12px" }}>your tasks</Typography>
           </Box>
 
-          <Box sx={{ display: "flex" ,width: "70%",alignItems:"center"}}>
+          <Box sx={{ display: "flex", width: "70%", alignItems: "center" }}>
             <Field
               id="outlined-basic"
               placeholder="Search tasks..."
@@ -139,15 +144,29 @@ function RightSide({ toDo, setToDo,optionOfPriority,priority,setRightSidePriorit
               }}
               variant="outlined"
             />
-            <SelectOption optionOfPriority={optionOfPriority} priority={priority} handlePriorityChange={handlePriorityChange}/>
+            <SelectOption
+              optionOfPriority={optionOfPriority}
+              priority={priority}
+              handlePriorityChange={handlePriorityChange}
+            />
           </Box>
         </AddTask>
 
-        {toDo?.map((itm) => (
-          <>
-           <ItemList handleClickOpen={handleClickOpen}  handleOpen={handleOpen} itm={itm}/>
-          </>
-        ))}
+        {priority === "All"
+          ? toDo.map((itm) => (
+              <ItemList
+                handleClickOpen={handleClickOpen}
+                handleOpen={handleOpen}
+                itm={itm}
+              />
+            ))
+          : filterWiseData.map((itm) => (
+              <ItemList
+                handleClickOpen={handleClickOpen}
+                handleOpen={handleOpen}
+                itm={itm}
+              />
+            ))}
       </MainBox>
 
       <DeleteDialog

@@ -10,6 +10,9 @@ function ToDoApp() {
   const [priority, setPriority] = useState("Medium Priority");
   const [rightSidePriority,setRightSidePriority] = useState("All")
 
+
+  const [filterWiseData,setFilterWiseData] = useState([]);
+
   const optionOfPriority = ["Low Priority", "Medium Priority", "High Priority"];
 
   const optionOfPriorityOfRightSide = ["All","Low Priority", "Medium Priority", "High Priority"]
@@ -27,8 +30,25 @@ function ToDoApp() {
         status: "pending",
         priority: priority,
       };
+
       
-      setToDo([...toDo, nwtask]);
+      let highPriorityTask = toDo.filter((itm) => itm.priority === "High Priority" );
+
+      let mediumPriorityTask = toDo.filter((itm) => itm.priority === "Medium Priority");
+
+      let LowPriorityTask = toDo.filter((itm) => itm.priority === "Low Priority");
+
+      
+     if(nwtask.priority == "High Priority"){
+      highPriorityTask.push(nwtask);
+
+     }else if(nwtask.priority == "Medium Priority"){
+      mediumPriorityTask.push(nwtask);
+     }else{
+      LowPriorityTask.push(nwtask);
+     }
+      
+      setToDo([...highPriorityTask,...mediumPriorityTask,...LowPriorityTask]);
       setTask("");
     }
   };
@@ -39,10 +59,20 @@ function ToDoApp() {
     }
   }, [toDo]);
 
-  //   useEffect(() => {
-  //     const getTask = JSON.parse(localStorage.getItem("taskList")) || [];
-  //     setToDo(getTask);
-  //   },[])
+    useEffect(() => {
+      const getTask = JSON.parse(localStorage.getItem("taskList")) || [];
+      setToDo(getTask);
+    },[])
+
+  useEffect(() => {
+      
+    const filterWiseData = toDo.filter((itm) => itm.priority === priority);
+    console.log("filterWiseData",filterWiseData);
+
+    setFilterWiseData(filterWiseData)
+  },[priority])
+
+ console.log("filterWiseData",filterWiseData);
 
   return (
     <Box
@@ -70,7 +100,7 @@ function ToDoApp() {
           setPriority={setPriority}
           optionOfPriority={optionOfPriority}
         />
-        <RightSide toDo={toDo} setToDo={setToDo} optionOfPriority={optionOfPriorityOfRightSide} priority={rightSidePriority} setRightSidePriority={setRightSidePriority} />
+        <RightSide toDo={toDo} setToDo={setToDo} optionOfPriority={optionOfPriorityOfRightSide} priority={rightSidePriority} setRightSidePriority={setRightSidePriority} filterWiseData={filterWiseData} />
       </Box>
     </Box>
   );
