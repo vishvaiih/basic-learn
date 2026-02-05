@@ -4,7 +4,15 @@ import {Item,Complete,Btn,Buton,} from "./RightSide";
 import { AddTask, MainBox } from "./LeftSide";
 import { Box, Typography } from "@mui/material";
 
-function ItemList({handleClickOpen,handleOpen,itm,newDate}) {
+function ItemList({handleClickOpen,handleOpen,itm}) {
+
+  const todayDate = new Date().toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric'
+  })
+
+ 
   return (
     <Item>
     <AddTask sx={{ width: "50%" }}>
@@ -14,13 +22,7 @@ function ItemList({handleClickOpen,handleOpen,itm,newDate}) {
         ) : (
           <Circle size={20} style={{ color: "#666b83" }} />
         )}
-        {/* <Circle size={15} style={{ color: itm.status == "complete" ? "#75b06f" :"#666b83",fontWeight:"bold",display:"flex",alignItems:"center",justifyContent:"center"}}>
-         {itm.status == "complete" ?  <Check size={24} /> : null}
-        </Circle> */}
-
-        {/* <PanoramaFishEyeIcon  style={{ color: itm.status == "complete" ? "#75b06f" :"#666b83",display:"flex",alignItems:"center",justifyContent:"center"}}>
-          {itm.status == "complete" ?  <CheckIcon size={26} /> : null}
-        </PanoramaFishEyeIcon> */}
+       
       </Complete>
       <Box>
         <Typography
@@ -32,9 +34,10 @@ function ItemList({handleClickOpen,handleOpen,itm,newDate}) {
         >
           {itm.name}
         </Typography>
-        <Btn>{newDate > new Date() ? `${itm.date} + duedate` : `${itm.date}`}</Btn>
+        <Btn >{todayDate < itm.date ? `${itm.date}` + " " + "Duedate" :   `${itm.date}`}</Btn>
       </Box>
     </AddTask>
+
 
     <AddTask sx={{ width: "50%", justifyContent: "flex-end" }}>
       <Buton
