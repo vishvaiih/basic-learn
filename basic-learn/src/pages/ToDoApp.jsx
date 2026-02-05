@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 function ToDoApp() {
   const [task, setTask] = useState("");
   const [toDo, setToDo] = useState([]);
-  const [date,setDate] = useState(dayjs('2022-04-17'));
+  const [date,setDate] = useState(dayjs());
 
   // const today = new Date();
   // const day = String(today.getDate()).padStart(2, '0');

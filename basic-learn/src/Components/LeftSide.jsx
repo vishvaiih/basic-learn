@@ -59,7 +59,21 @@ function LeftSide({
     setPriority(event.target.value);
   };
 
-  console.log("date",date);
+  const handleDateChange = (newValue) => {
+    console.log(newValue, "newvalue");
+    console.log("date...", date);
+    
+
+    if (newValue.$d > date.$d) {
+      setDate(newValue);
+    }
+
+    if (todaydate > newValue.$d && todaydate=== newValue.$d) {
+      setDate(newValue);
+    }
+  };
+
+  console.log("date", date);
 
   return (
     <MainBox sx={{ margin: "3% 3% 0% 0%" }}>
@@ -93,8 +107,8 @@ function LeftSide({
         <Box sx={{ marginLeft: "4%" }}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
-               value={date}
-               onChange={(newValue) => setDate(newValue)}
+              value={date}
+              onChange={(newValue) => handleDateChange(newValue)}
               name="startDate"
               slotProps={{
                 textField: {
