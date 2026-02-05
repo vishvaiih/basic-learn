@@ -53,25 +53,18 @@ function LeftSide({
   optionOfPriority,
   date,
   setDate,
+  handleDateChange,
+  error,
+ 
 }) {
+ 
+
   const handlePriorityChange = (event) => {
     console.log("....", event.target.value);
     setPriority(event.target.value);
   };
 
-  const handleDateChange = (newValue) => {
-    console.log(newValue, "newvalue");
-    console.log("date...", date);
-    
-
-    if (newValue.$d > date.$d) {
-      setDate(newValue);
-    }
-
-    if (todaydate > newValue.$d && todaydate=== newValue.$d) {
-      setDate(newValue);
-    }
-  };
+  
 
   console.log("date", date);
 
@@ -98,12 +91,15 @@ function LeftSide({
         }}
       />
       <Box sx={{ display: "flex", alignItems: "center" }}>
-        <SelectOption
-          priority={priority}
-          setPriority={setPriority}
-          handlePriorityChange={handlePriorityChange}
-          optionOfPriority={optionOfPriority}
-        />
+        <Box>
+          <SelectOption
+            priority={priority}
+            setPriority={setPriority}
+            handlePriorityChange={handlePriorityChange}
+            optionOfPriority={optionOfPriority}
+          />
+        </Box>
+
         <Box sx={{ marginLeft: "4%" }}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
@@ -125,6 +121,12 @@ function LeftSide({
               }}
             />
           </LocalizationProvider>
+
+          <Typography
+            sx={{ fontSize: "10px", color: "red", margin: "10px 0px" }}
+          >
+            {error}
+          </Typography>
         </Box>
       </Box>
 

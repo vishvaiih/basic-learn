@@ -24,6 +24,10 @@ function ToDoApp() {
 
   const [filterWiseData,setFilterWiseData] = useState([]);
 
+   const [error, setError] = useState("");
+
+   const [newDate,setNewDate] = useState("");
+
   const optionOfPriority = ["Low Priority", "Medium Priority", "High Priority"];
 
   const optionOfPriorityOfRightSide = ["All","Low Priority", "Medium Priority", "High Priority"]
@@ -32,6 +36,29 @@ function ToDoApp() {
     const value = e.target.value;
     setTask(value);
   };
+
+  const handleDateChange = (newValue) => {
+    console.log(newValue, "newvalue");
+    console.log("date...", date);
+    setNewDate(newValue.$d)
+
+    const todaydate = new Date();
+
+    if (newValue.$d > todaydate) {
+      setDate(newValue);
+      setError("");
+      
+    }
+
+    if (todaydate > newValue.$d && todaydate === newValue.$d) {
+      setDate(newValue);
+    }
+
+    if(newValue.$d < todaydate){
+      setError("pleade select valid date");
+    }
+  };
+
 
   const handleAdd = () => {
     if (task.trim()) {
@@ -120,9 +147,11 @@ function ToDoApp() {
           optionOfPriority={optionOfPriority}
           date={date}
           setDate={setDate}
+          error={error}
+          handleDateChange={handleDateChange}
 
         />
-        <RightSide toDo={toDo} setToDo={setToDo} optionOfPriority={optionOfPriorityOfRightSide} priority={rightSidePriority} setRightSidePriority={setRightSidePriority} filterWiseData={filterWiseData} setFilterWiseData={setFilterWiseData} />
+        <RightSide toDo={toDo} setToDo={setToDo} optionOfPriority={optionOfPriorityOfRightSide} priority={rightSidePriority} setRightSidePriority={setRightSidePriority} filterWiseData={filterWiseData} setFilterWiseData={setFilterWiseData} newDate={newDate}/>
       </Box>
     </Box>
   );

@@ -4,7 +4,7 @@ import {Item,Complete,Btn,Buton,} from "./RightSide";
 import { AddTask, MainBox } from "./LeftSide";
 import { Box, Typography } from "@mui/material";
 
-function ItemList({handleClickOpen,handleOpen,itm}) {
+function ItemList({handleClickOpen,handleOpen,itm,newDate}) {
   return (
     <Item>
     <AddTask sx={{ width: "50%" }}>
@@ -32,7 +32,7 @@ function ItemList({handleClickOpen,handleOpen,itm}) {
         >
           {itm.name}
         </Typography>
-        <Btn>{itm.date}</Btn>
+        <Btn>{newDate > new Date() ? `${itm.date} + duedate` : `${itm.date}`}</Btn>
       </Box>
     </AddTask>
 

@@ -71,6 +71,7 @@ function RightSide({
   setRightSidePriority,
   filterWiseData,
   setFilterWiseData,
+  newDate
 }) {
   const [open, setOpen] = useState(false);
   const [completeDialogOpen, setCompleteDialogOpen] = useState(false);
@@ -218,6 +219,7 @@ function RightSide({
             handleClickOpen={handleClickOpen}
             handleOpen={handleOpen}
             itm={itm}
+            newDate={newDate}
           />
         ))}
 
