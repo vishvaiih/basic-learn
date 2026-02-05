@@ -2,7 +2,7 @@ import { Box, Button, styled, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import SelectOption from "./SelectOption";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -52,21 +52,15 @@ function LeftSide({
   priority,
   optionOfPriority,
   date,
-  setDate,
   handleDateChange,
   error,
- 
-}) {
- 
 
+}) {
   const handlePriorityChange = (event) => {
     console.log("....", event.target.value);
     setPriority(event.target.value);
   };
 
-  
-
-  console.log("date", date);
 
   return (
     <MainBox sx={{ margin: "3% 3% 0% 0%" }}>
@@ -104,6 +98,7 @@ function LeftSide({
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               value={date}
+              format="DD/MM/YYYY"
               onChange={(newValue) => handleDateChange(newValue)}
               name="startDate"
               slotProps={{

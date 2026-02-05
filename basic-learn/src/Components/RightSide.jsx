@@ -37,8 +37,9 @@ export const Btn = styled(Button)({
   borderRadius: "30px",
   backgroundColor: "#f9dfdf",
   fontSize: "10px",
-  color: "black",
+  color: "red",
   textTransform: "capitalize",
+  fontWeight:"bold"
 });
 
 export const Buton = styled(Button)({
