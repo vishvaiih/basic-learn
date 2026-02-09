@@ -138,7 +138,7 @@ function RightSide({
 
   useEffect(() => {
     const searchfilterFromAllList = toDo.filter((itm) =>
-      search.includes(itm.name)
+      itm.name.includes(search)
     );
     console.log("searchfilterFromAllList", searchfilterFromAllList);
     setSearchfilterFromAllList(searchfilterFromAllList);

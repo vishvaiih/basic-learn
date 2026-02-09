@@ -54,13 +54,11 @@ function LeftSide({
   date,
   handleDateChange,
   error,
-
 }) {
   const handlePriorityChange = (event) => {
     console.log("....", event.target.value);
     setPriority(event.target.value);
   };
-
 
   return (
     <MainBox sx={{ margin: "3% 3% 0% 0%" }}>
@@ -100,22 +98,59 @@ function LeftSide({
               value={date}
               format="DD/MM/YYYY"
               onChange={(newValue) => handleDateChange(newValue)}
-              name="startDate"
               slotProps={{
                 textField: {
                   size: "small",
+                  variant: "outlined",
                   sx: {
                     width: "150px",
                     height: "32px",
+                    borderRadius: "10px",
                     "& .MuiOutlinedInput-root": {
-                      height: "15px",
+                      height: "32px",
                       borderRadius: "10px",
+                    },
+
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#1976d2",
+                    },
+
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#1565c0",
+                    },
+
+                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#0d47a1",
+                    },
+
+                    "& input": {
+                      padding: "6px 10px",
+                      fontSize: "13px",
                     },
                   },
                 },
               }}
             />
           </LocalizationProvider>
+
+          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Box display="flex" gap={2}>
+           
+              {/* Date Picker Input */}
+          {/* <DatePicker
+                label="Select Date"
+                value={date}
+                onChange={(newValue) => handleDateChange(newValue)}
+                slotProps={{
+                  textField: {
+                    width:"20%",
+                    border:"2px solid black",
+                   },
+                }}
+              /> */}
+          {/* 
+            </Box>
+          </LocalizationProvider> */}
 
           <Typography
             sx={{ fontSize: "10px", color: "red", margin: "10px 0px" }}
